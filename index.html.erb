@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      table { width: 100%%; border-spacing: 0; }
+      tbody tr:hover { background-color: #eee; }
+      .name { text-align: left; }
+      .size, .mtime { text-align: right; }
+      .type { text-align: center; width: 11em; }
+      .mtime { width :15em; }
+    </style>
+    <title>GIFs</title>
+  </head>
+  <body>
+    <h1>GIFs</h1>
+
+    <hr>
+    <table>
+      <thead>
+        <tr>
+          <th class="name">Name</th>
+          <th class="size">Size</th>
+          <th class="type">Type</th>
+          <th class="mtime">Last Modified</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @gifs.each do |gif| %>
+          <tr>
+            <td class="name">
+              <a href="<%= gif[:url] %>"><%= gif[:name] %></a>
+            </td>
+            <td class="size"><%= gif[:size] %></td>
+            <td class="type">image/gif</td>
+            <td class="mtime"><%= gif[:mtime] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <hr>
+
+    <script>
+      (function () {
+        var rows = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+        for (var i in rows) {
+          if (typeof(rows[i]) !== 'object') break;
+          rows[i].onclick = function () {
+            window.location.href = this.getElementsByTagName("td")[0].getElementsByTagName("a")[0].href;
+          };
+        }
+      })();
+    </script>
+  </body>
+</html>
